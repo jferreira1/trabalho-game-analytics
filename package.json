@@ -1,0 +1,15 @@
+{
+  "name": "game-analytics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jean Ferreira <jeansouza@pm.me>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --ignore-watch node_modules src/app.ts"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {}
+}
