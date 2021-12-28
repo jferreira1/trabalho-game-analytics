@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryColumn, JoinTable, ManyToMany } from "typeorm";
-import { Monster } from "../model/Monster";
+import { Monster } from "./Monster";
 
 @Entity()
 export class World {
