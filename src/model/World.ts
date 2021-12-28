@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, JoinTable, ManyToMany } from "typeorm";
+import { Monster } from "../model/Monster";
 
 @Entity()
 export class World {
@@ -16,4 +17,8 @@ export class World {
 
   @Column({ length: 100 })
   transfer_type: string;
+
+  @ManyToMany(() => Monster)
+  @JoinTable()
+  monsters: Monster[];
 }
