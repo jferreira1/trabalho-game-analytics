@@ -8,13 +8,23 @@ export class CreateMonsters1640654815581 implements MigrationInterface {
         columns: [
           {
             name: "id",
-            type: "int",
+            type: "integer",
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: "increment",
           },
           {
             name: "race",
             type: "varchar",
             isUnique: true,
+          },
+          {
+            name: "name",
+            type: "varchar",
+          },
+          {
+            name: "is_boss",
+            type: "integer",
           },
         ],
       })

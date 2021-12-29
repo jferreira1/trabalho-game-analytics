@@ -8,8 +8,10 @@ export class CreateKillRegisters1640654912467 implements MigrationInterface {
         columns: [
           {
             name: "id",
-            type: "int",
+            type: "integer",
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: "increment",
           },
           {
             name: "amount",

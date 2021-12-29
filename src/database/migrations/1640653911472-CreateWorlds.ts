@@ -8,8 +8,10 @@ export class CreateWorlds1640653911472 implements MigrationInterface {
         columns: [
           {
             name: "id",
-            type: "int",
+            type: "integer",
             isPrimary: true,
+            isGenerated: true,
+            generationStrategy: "increment",
           },
           {
             name: "name",
