@@ -24,7 +24,7 @@ class World {
   @Column({ length: 100 })
   transfer_type: string;
 
-  @ManyToMany(() => Monster)
+  @ManyToMany(() => Monster, (monster) => monster.worlds)
   @JoinTable()
   monsters: Monster[];
 }

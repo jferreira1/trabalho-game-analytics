@@ -1,2 +1,3 @@
-import "./database/connect";
 import "./assets/getJson";
+
+import "./database/connect";

@@ -1,18 +1,22 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from "typeorm";
+import World from "./World";
 
 @Entity("monsters")
 class Monster {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn("increment")
   id: number;
 
   @Column({ unique: true, length: 255 })
   race: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: true })
   name: string;
 
   @Column({ name: "is_boss" })
-  isBoss: number;
+  isBoss: boolean;
+
+  @ManyToMany(() => World, (world) => world.monsters)
+  worlds: World[];
 }
 
 export default Monster;

@@ -3,6 +3,7 @@ import path from "path";
 
 import { getRepository } from "typeorm";
 import Monster from "../models/Monster";
+import World from "../models/World";
 
 export class CreateMonsterService {
   async populateFromFile() {
@@ -15,7 +16,7 @@ export class CreateMonsterService {
       let monster = new Monster();
       monster.race = monsterData.race;
       monster.name = monsterData.name;
-      monster.isBoss = 0;
+      monster.isBoss = false;
 
       await this.execute(monster);
     }
@@ -23,6 +24,10 @@ export class CreateMonsterService {
 
   async execute(monster: Monster) {
     const repo = getRepository(Monster);
+
+    const repoWorlds = getRepository(World);
+    const worlds = await repoWorlds.find();
+    monster.worlds = worlds;
 
     if (await repo.findOne({ race: monster.race })) {
       return new Error("Monster already registered");

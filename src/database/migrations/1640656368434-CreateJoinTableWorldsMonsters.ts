@@ -6,25 +6,25 @@ export class CreateJoinTableWorldsMonsters1640656368434
   public async up(queryRunner: QueryRunner): Promise<void> {
     queryRunner.createTable(
       new Table({
-        name: "worlds_monsters",
+        name: "worlds_monsters_monsters",
         columns: [
           {
-            name: "world_id",
+            name: "worldsId",
             type: "int",
           },
           {
-            name: "monster_id",
+            name: "monstersId",
             type: "int",
           },
         ],
         foreignKeys: [
           {
-            columnNames: ["world_id"],
+            columnNames: ["worldsId"],
             referencedColumnNames: ["id"],
             referencedTableName: "worlds",
           },
           {
-            columnNames: ["monster_id"],
+            columnNames: ["monstersId"],
             referencedColumnNames: ["id"],
             referencedTableName: "monsters",
           },
@@ -34,6 +34,24 @@ export class CreateJoinTableWorldsMonsters1640656368434
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("worlds_monsters");
+    const table = await queryRunner.getTable("worlds_monsters_monsters");
+    if (!table) {
+      return;
+    }
+    const foreignKeyMonsterId = await table.foreignKeys.find(
+      (fk) => fk.columnNames.indexOf("monsterId") !== -1
+    );
+    const foreignKeyWorldId = await table.foreignKeys.find(
+      (fk) => fk.columnNames.indexOf("worldId") !== -1
+    );
+    if (!foreignKeyMonsterId || !foreignKeyWorldId) {
+      return;
+    }
+    await queryRunner.dropForeignKeys("worlds_monsters_monsters", [
+      foreignKeyMonsterId,
+      foreignKeyWorldId,
+    ]);
+
+    await queryRunner.dropTable("worlds_monsters_monsters");
   }
 }

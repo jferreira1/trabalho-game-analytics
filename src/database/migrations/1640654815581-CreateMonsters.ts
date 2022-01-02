@@ -24,7 +24,7 @@ export class CreateMonsters1640654815581 implements MigrationInterface {
           },
           {
             name: "is_boss",
-            type: "integer",
+            type: "boolean",
           },
         ],
       })
