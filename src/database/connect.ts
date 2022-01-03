@@ -20,39 +20,37 @@ import axios from "axios";
 createConnection().then(async () => {
   // new sqlite3.Database();
   console.log("🔗 Successfully connected to database.");
-  await new CreateWorldService().populateFromFile();
-  await new CreateMonsterService().populateFromFile();
+  //await new CreateWorldService().populateFromFile();
+  //await new CreateMonsterService().populateFromFile();
 
   const repo = getRepository(World);
   const worlds = await repo.find();
   worlds.forEach((world, index) => {
     let timer = setTimeout(async () => {
-      if (world.name === "Adra") {
-        await console.log(
+      await console.log(
+        `https://dev.tibiadata.com/v3/killstatistics/world/${world.name.toLocaleLowerCase()}`
+      );
+      await axios
+        .get(
           `https://dev.tibiadata.com/v3/killstatistics/world/${world.name.toLocaleLowerCase()}`
-        );
-        await axios
-          .get(
-            `https://dev.tibiadata.com/v3/killstatistics/world/${world.name.toLocaleLowerCase()}`
-          )
-          .then(async (res) => {
-            await console.log(res.data.information);
-            let date = new Date();
-            fs.writeFileSync(
-              `./src/assets/killstatistics/${world.name}${date
-                .toLocaleDateString("pt-BR")
-                .replace("/", "")
-                .replace("/", "")}.json`,
-              JSON.stringify(res.data)
-            );
-            await new CreateKillRegisterService().populate(
-              world,
-              res.data.killstatistics.entries
-            );
+        )
+        .then(async (res) => {
+          await console.log(res.data.information);
+          let date = new Date();
+          fs.writeFileSync(
+            `./src/assets/killstatistics/${world.name}${date
+              .toLocaleDateString("pt-BR")
+              .replace("/", "")
+              .replace("/", "")}.json`,
+            JSON.stringify(res.data)
+          );
+          await new CreateKillRegisterService().populate(
+            world,
+            res.data.killstatistics.entries
+          );
 
-            clearTimeout(timer);
-          });
-      }
-    }, 1200 * (index + 1));
+          clearTimeout(timer);
+        });
+    }, 2200 * (index + 1));
   });
 });

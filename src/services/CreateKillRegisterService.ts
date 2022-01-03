@@ -24,7 +24,11 @@ export class CreateKillRegisterService {
         monster.worlds = worlds;
         monster.isBoss = false;
         monster.name = "";
-        await new CreateMonsterService().execute(monster);
+        try {
+          await new CreateMonsterService().execute(monster);
+        } catch (err) {
+          console.log(err);
+        }
       }
       killRegister.monster = await repoMonster.findOneOrFail({
         race: monster.race,
