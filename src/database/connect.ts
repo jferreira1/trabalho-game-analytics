@@ -1,5 +1,4 @@
 import { createConnection, getRepository } from "typeorm";
-import sqlite3 from "sqlite3";
 
 import { CreateWorldService } from "../services/CreateWorldService";
 import { CreateMonsterService } from "../services/CreateMonsterService";
@@ -7,7 +6,6 @@ import { CreateKillRegisterService } from "../services/CreateKillRegisterService
 import World from "../models/World";
 
 import fs from "fs";
-import path from "path";
 import axios from "axios";
 
 // SQLITE DB
