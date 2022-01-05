@@ -1,3 +1,4 @@
+import axios from "axios";
 import { getRepository } from "typeorm";
 import KillRegister from "../models/KillRegister";
 import Monster from "../models/Monster";
@@ -5,6 +6,29 @@ import World from "../models/World";
 import { CreateMonsterService } from "./CreateMonsterService";
 
 export class CreateKillRegisterService {
+  async callApi() {
+    const repo = getRepository(World);
+    const worlds = await repo.find();
+    worlds.forEach((world, index) => {
+      let timer = setTimeout(async () => {
+        console.log(
+          `https://dev.tibiadata.com/v3/killstatistics/world/${world.name.toLocaleLowerCase()}`
+        );
+
+        await axios
+          .get(
+            `https://dev.tibiadata.com/v3/killstatistics/world/${world.name.toLocaleLowerCase()}`
+          )
+          .then(async (res) => {
+            console.log(res.data.information);
+
+            await this.populate(world, res.data.killstatistics.entries);
+
+            clearTimeout(timer);
+          });
+      }, 2200 * (index + 1));
+    });
+  }
   async populate(world: World, entries: any[]) {
     await entries.forEach(async (entry) => {
       const repo = getRepository(KillRegister);

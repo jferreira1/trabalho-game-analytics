@@ -15,10 +15,12 @@
   "dependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/node": "^17.0.5",
+    "@types/prompt": "^1.1.2",
     "@types/sqlite3": "^3.1.8",
     "axios": "^0.24.0",
     "dotenv": "^10.0.0",
     "mysql2": "^2.3.3",
+    "prompt": "^1.2.0",
     "sqlite3": "^5.0.2",
     "typeorm": "^0.2.41"
   }
