@@ -12,12 +12,12 @@ export class CreateKillRegisterService {
     worlds.forEach((world, index) => {
       let timer = setTimeout(async () => {
         console.log(
-          `https://dev.tibiadata.com/v3/killstatistics/world/${world.name.toLocaleLowerCase()}`
+          `https://dev.tibiadata.com/v3/killstatistics/${world.name.toLocaleLowerCase()}`
         );
 
         await axios
           .get(
-            `https://dev.tibiadata.com/v3/killstatistics/world/${world.name.toLocaleLowerCase()}`
+            `https://dev.tibiadata.com/v3/killstatistics/${world.name.toLocaleLowerCase()}`
           )
           .then(async (res) => {
             console.log(res.data.information);
